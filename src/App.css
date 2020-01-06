@@ -15,3 +15,17 @@ body {
 header {
   text-align: center;
 }
+
+main {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.item {
+  background-color: lightskyblue;
+  width: 30%;
+  height: 20rem;
+  margin: 5px;
+}
