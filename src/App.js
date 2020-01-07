@@ -4,7 +4,10 @@ import './App.css';
 class App extends React.Component {
 
   state = {
-    inputValue: ''
+    inputValue: '',
+    showTotal: false,
+    totalItems: '',
+    items: []
   }
 
   handleChange = e => {
@@ -20,7 +23,7 @@ class App extends React.Component {
       xhr.onload = function() {
         // This is called even on 404 etc
         // so check the status
-        if (xhr.status == 200) {
+        if (xhr.status === 200) {
           // Resolve the promise with the response text
           resolve(xhr.response);
         }
@@ -43,13 +46,29 @@ class App extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}`)
-      .then( response => {
-        console.log("response: ", response);
-      }, error => {
-        console.log("error: ", error);
-      } );
-    console.log(this.state.inputValue);
+    // Handle empty submit
+    if (this.state.inputValue) {
+      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}`)
+        .then( response => {
+          const { totalItems, items } = JSON.parse(response);
+          console.log('totalItems: ', totalItems);
+          console.log('items: ', items);
+          this.setState({
+            totalItems,
+            items,
+            showTotal: true
+          });
+        }, error => {
+          console.log("error: ", error);
+        } );
+      console.log(this.state.inputValue);
+    } else {
+      this.setState({
+        totalItems: '',
+        items: [],
+        showTotal: false
+      });
+    }
   }
 
   render() {
@@ -61,19 +80,12 @@ class App extends React.Component {
             <input type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" />
             <button type="submit" value="Submit">Submit</button>
           </form>
+          <div className="total">{this.state.showTotal && `Total items ${this.state.totalItems}`}</div>
         </header>
         <main>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-          <div className="item"></div>
-
+          {this.state.items.map( item => (
+            <article className="item"></article>
+          ))}
         </main>
       </div>
     );
