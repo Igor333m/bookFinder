@@ -7,9 +7,14 @@ const Item = props => {
     console.log("selfLink: ", selfLink);
     console.log("volumeInfo: ", volumeInfo);
     return (
-        <article className="item">
+        <section className="item">
+            <h2>{volumeInfo.title}</h2>
+            <p>By: {volumeInfo.authors && volumeInfo.authors.map( author => author ) || 'No authors found'}</p>
+            <p>Published By: {volumeInfo.publisher || 'Unknown publisher'}</p>
+            <p>Published Date: {volumeInfo.publishedDate}</p>
             <img src={volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail || "https://books.google.com/googlebooks/images/no_cover_thumb.gif"} alt="Book cover of {item.volumeInfo.title}"/>
-        </article>
+            <a href={volumeInfo.infoLink} target="_blank">See this Book</a>
+        </section>
     );
   };
   
