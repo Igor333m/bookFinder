@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Item from './Item';
 
 class App extends React.Component {
 
@@ -84,7 +85,7 @@ class App extends React.Component {
         </header>
         <main>
           {this.state.items.map( item => (
-            <article className="item"></article>
+            <Item item={item} key={item.id}></Item>
           ))}
         </main>
       </div>
