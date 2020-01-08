@@ -6,9 +6,11 @@ import styled from 'styled-components';
 const Main = styled.main`
   display: flex;
   max-width: 900%;
-  margin: auto;
+  margin: 0 auto;
+  flex: auto;
   flex-flow: row wrap;
   justify-content: center;
+  align-content: flex-start;
 `;
 
 const TotalItems = styled.div`
@@ -18,18 +20,25 @@ const TotalItems = styled.div`
 const PoweredbyGoogle = styled.img`
   border: 0;
   position: relative;
-  top: 14px;
-  left: 15px;
+  top: 1.5rem;
 `;
 
 const SearchInput = styled.input`
-  width: 25%;
+  width: 35%;
   height: 5rem;
   /* border: solid; */
   font-size: larger;
   padding-left: 1rem;
   border: 2px solid #999;
   border-radius: 1rem 0 0 1rem;
+
+  @media screen and (max-width: 1000px) {
+    width: 75%;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 60%;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -42,10 +51,19 @@ const SubmitButton = styled.button`
   font-size: larger;
   padding-left: 1rem;
   border-radius: 0 1rem 1rem 0;
+
   &:hover {
     color: white;
     border-color: #777;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 15%;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 30%;
   }
 
 `;
@@ -97,7 +115,7 @@ class App extends React.Component {
     e.preventDefault();
     // Handle empty submit
     if (this.state.inputValue) {
-      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}`)
+      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}&startIndex=11`)
         .then( response => {
           const { totalItems, items } = JSON.parse(response);
           console.log('response: ', response);
@@ -129,8 +147,8 @@ class App extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <SearchInput type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" />
             <SubmitButton type="submit" value="Submit">Submit</SubmitButton>
-            <PoweredbyGoogle src="https://books.google.com/googlebooks/images/poweredby.png" border="0" alt=""></PoweredbyGoogle>
           </form>
+          <PoweredbyGoogle src="https://books.google.com/googlebooks/images/poweredby.png" border="0" alt=""></PoweredbyGoogle>
           <TotalItems>{this.state.showTotal && `Total items: ${this.state.totalItems}`}</TotalItems>
         </header>
         <Main>
