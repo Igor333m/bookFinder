@@ -6,11 +6,12 @@ html {
   box-sizing: inherit;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,500&display=swap');
 
 body {
-  background-color:#242424;
+  background-color:#d8d2cd;
   font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
 }
 
 header {
@@ -19,6 +20,7 @@ header {
 
 div, span, p {
   font-size: 1.5rem;
+  font-weight: 300;
 }
 
 h1 {
@@ -53,11 +55,13 @@ main {
 }
 
 .item {
-  background-color: lightskyblue;
+  background-color: whitesmoke;
   width: 40rem;
   height: 32rem;
   margin: 2rem 2rem;
   padding: 2rem;
+  -moz-border-radius: 0 3rem 0 0;
+  border-radius: 0 3rem 0 0;
 }
 .book {
   display: flex;
@@ -104,4 +108,28 @@ a {
 
 form input {
   width: 25%;
+  height: 5rem;
+  /* border: solid; */
+  font-size: larger;
+  padding-left: 1rem;
+  border: 2px solid #999;
+  border-radius: 1rem 0 0 1rem;
+}
+
+form button {
+  height: 5rem;
+  width: 15%;
+  border: 2px solid #999;
+  background-color: green;
+  color: whitesmoke;
+  /* border: solid; */
+  font-size: larger;
+  padding-left: 1rem;
+  border-radius: 0 1rem 1rem 0;
+}
+
+form button:hover {
+  color: white;
+  border-color: #777;
+  cursor: pointer;
 }
