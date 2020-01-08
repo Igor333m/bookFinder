@@ -54,52 +54,6 @@ main {
   justify-content: center;
 }
 
-.item {
-  background-color: whitesmoke;
-  width: 40rem;
-  height: 32rem;
-  margin: 2rem 2rem;
-  padding: 2rem;
-  -moz-border-radius: 0 3rem 0 0;
-  border-radius: 0 3rem 0 0;
-}
-.book {
-  display: flex;
-  height: 24rem;
-}
-
-.book-image {
-  position: relative;
-  bottom: 4rem;
-  margin-right: 1.5rem;
-  flex: 1 40%;
-}
-
-.book-image img {
-  width: 128px;
-  box-shadow: 0 0 30px #333;
-}
-
-.book-description {
-  flex: auto;
-}
-
-a {
-  position: relative;
-  left: 16rem;
-  display: inline-block;
-  height: 4rem;
-  width: 20rem;
-  text-align: center;
-  text-decoration: none;
-  background-color:green;
-  padding: 1rem;
-  font-weight: 500;
-  color: whitesmoke;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-}
-
 .poweredbyGoogle {
   border: 0;
   position: relative;
