@@ -1,6 +1,54 @@
 import React from 'react';
 import './App.css';
 import Item from './Item';
+import styled from 'styled-components';
+
+const Main = styled.main`
+  display: flex;
+  max-width: 900%;
+  margin: auto;
+  flex-flow: row wrap;
+  justify-content: center;
+`;
+
+const TotalItems = styled.div`
+  margin: 2rem;
+`;
+
+const PoweredbyGoogle = styled.img`
+  border: 0;
+  position: relative;
+  top: 14px;
+  left: 15px;
+`;
+
+const SearchInput = styled.input`
+  width: 25%;
+  height: 5rem;
+  /* border: solid; */
+  font-size: larger;
+  padding-left: 1rem;
+  border: 2px solid #999;
+  border-radius: 1rem 0 0 1rem;
+`;
+
+const SubmitButton = styled.button`
+  height: 5rem;
+  width: 15%;
+  border: 2px solid #999;
+  background-color: green;
+  color: whitesmoke;
+  /* border: solid; */
+  font-size: larger;
+  padding-left: 1rem;
+  border-radius: 0 1rem 1rem 0;
+  &:hover {
+    color: white;
+    border-color: #777;
+    cursor: pointer;
+  }
+
+`;
 
 class App extends React.Component {
 
@@ -79,19 +127,19 @@ class App extends React.Component {
         <header>
           <h1>Book Finder</h1>
           <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" />
-            <button type="submit" value="Submit">Submit</button>
-            <img src="https://books.google.com/googlebooks/images/poweredby.png" className="poweredbyGoogle" border="0" alt=""></img>
+            <SearchInput type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" />
+            <SubmitButton type="submit" value="Submit">Submit</SubmitButton>
+            <PoweredbyGoogle src="https://books.google.com/googlebooks/images/poweredby.png" border="0" alt=""></PoweredbyGoogle>
           </form>
-          <div className="total">{this.state.showTotal && `Total items: ${this.state.totalItems}`}</div>
+          <TotalItems>{this.state.showTotal && `Total items: ${this.state.totalItems}`}</TotalItems>
         </header>
-        <main>
+        <Main>
           { this.state.totalItems === 0 ?
             <div>No Results.</div> :
             this.state.items.map( item => (
             <Item item={item} key={item.id}></Item>
           ))}
-        </main>
+        </Main>
       </div>
     );
   }

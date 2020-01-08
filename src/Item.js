@@ -7,7 +7,6 @@ const Section = styled.section`
 	height: 32rem;
 	margin: 2rem 2rem;
 	padding: 2rem;
-	-moz-border-radius: 0 3rem 0 0;
 	border-radius: 0 3rem 0 0;
 `;
 
@@ -33,27 +32,30 @@ const BookInfoLink = styled.a`
   left: 16rem;
   display: inline-block;
   height: 4rem;
-  width: 20rem;
+  width: 15rem;
   text-align: center;
   text-decoration: none;
-  background-color:green;
+	background-color:green;
   padding: 1rem;
   font-weight: 500;
   color: whitesmoke;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+	border-radius: 15px;
+	&:hover {
+		color: white;
+		cursor: pointer;
+		box-shadow: 0 0 5px #999;
+	}
 `;
 
 const BookDescription = styled.div`
 	flex: auto;
 `;
+
 // "https://books.google.com/googlebooks/images/no_cover_thumb.gif"
 // 'item.volumeInfo.imageLinks.smallThumbnail'
 const Item = props => {
-	const { id, selfLink, volumeInfo } = props.item
-	console.log("id: ", id);
-	console.log("selfLink: ", selfLink);
-	console.log("volumeInfo: ", volumeInfo);
+	const { id, selfLink, volumeInfo } = props.item;
+
 	return (
 		<Section>
 			<Book>
