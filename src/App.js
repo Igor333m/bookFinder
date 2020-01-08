@@ -52,6 +52,7 @@ class App extends React.Component {
       this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}`)
         .then( response => {
           const { totalItems, items } = JSON.parse(response);
+          console.log('response: ', response);
           console.log('totalItems: ', totalItems);
           console.log('items: ', items);
           this.setState({
@@ -85,7 +86,9 @@ class App extends React.Component {
           <div className="total">{this.state.showTotal && `Total items: ${this.state.totalItems}`}</div>
         </header>
         <main>
-          {this.state.items.map( item => (
+          { this.state.totalItems === 0 ?
+            <div>No Results.</div> :
+            this.state.items.map( item => (
             <Item item={item} key={item.id}></Item>
           ))}
         </main>
