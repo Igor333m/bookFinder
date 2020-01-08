@@ -19,7 +19,7 @@ const Item = props => {
                     <p>Published Date: {volumeInfo.publishedDate}</p>
                 </div>
             </div>
-            <a href={volumeInfo.infoLink} target="_blank">See this Book</a>
+            <a href={volumeInfo.infoLink} target="_blank" rel="noopener">See this Book</a>
         </section>
     );
   };

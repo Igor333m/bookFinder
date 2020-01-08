@@ -93,8 +93,8 @@ a {
   text-decoration: none;
   background-color:green;
   padding: 1rem;
-  font-weight: bold;
-  color: white;
+  font-weight: 500;
+  color: whitesmoke;
   -moz-border-radius: 15px;
   border-radius: 15px;
 }
@@ -128,7 +128,7 @@ form button {
   border-radius: 0 1rem 1rem 0;
 }
 
-form button:hover {
+form button:hover, .item a:hover{
   color: white;
   border-color: #777;
   cursor: pointer;
