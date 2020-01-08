@@ -8,11 +8,17 @@ const Item = props => {
     console.log("volumeInfo: ", volumeInfo);
     return (
         <section className="item">
-            <h2>{volumeInfo.title}</h2>
-            <p>By: {volumeInfo.authors && volumeInfo.authors.map( author => author ) || 'No authors found'}</p>
-            <p>Published By: {volumeInfo.publisher || 'Unknown publisher'}</p>
-            <p>Published Date: {volumeInfo.publishedDate}</p>
-            <img src={volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail || "https://books.google.com/googlebooks/images/no_cover_thumb.gif"} alt="Book cover of {item.volumeInfo.title}"/>
+            <div className="book">
+                <div className="book-image">
+                    <img src={volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail || "https://books.google.com/googlebooks/images/no_cover_thumb.gif"} alt="Book cover of {item.volumeInfo.title}"/>
+                </div>
+                <div className="book-description">
+                    <h2 className="line-clamp" title={volumeInfo.title}>{volumeInfo.title}</h2>
+                    <p>By: {volumeInfo.authors && volumeInfo.authors.map( author => author ) || 'No authors found'}</p>
+                    <p>Published By: {volumeInfo.publisher || 'Unknown publisher'}</p>
+                    <p>Published Date: {volumeInfo.publishedDate}</p>
+                </div>
+            </div>
             <a href={volumeInfo.infoLink} target="_blank">See this Book</a>
         </section>
     );

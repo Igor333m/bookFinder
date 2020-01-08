@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  font-size: 10px;
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -16,16 +17,91 @@ header {
   text-align: center;
 }
 
+div, span, p {
+  font-size: 1.5rem;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h2, p {
+  margin: 0.5rem 0;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+.total {
+  margin: 2rem;
+}
+
 main {
-  width: 80%;
-  margin: auto;
   display: flex;
+  max-width: 900%;
+  margin: auto;
   flex-flow: row wrap;
+  justify-content: center;
 }
 
 .item {
   background-color: lightskyblue;
-  width: 30%;
-  height: 20rem;
-  margin: 5px;
+  width: 40rem;
+  height: 32rem;
+  margin: 2rem 2rem;
+  padding: 2rem;
+}
+.book {
+  display: flex;
+  height: 24rem;
+}
+
+.book-image {
+  position: relative;
+  bottom: 4rem;
+  margin-right: 1.5rem;
+  flex: 1 40%;
+}
+
+.book-image img {
+  box-shadow: 0 0 30px #333;
+}
+
+.book-description {
+  flex: auto;
+}
+
+a {
+  position: relative;
+  left: 16rem;
+  display: inline-block;
+  height: 4rem;
+  width: 20rem;
+  text-align: center;
+  text-decoration: none;
+  background-color:green;
+  padding: 1rem;
+  font-weight: bold;
+  color: white;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.poweredbyGoogle {
+  border: 0;
+  position: relative;
+  top: 14px;
+  left: 15px;
+}
+
+form input {
+  width: 25%;
 }

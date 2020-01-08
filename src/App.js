@@ -80,8 +80,9 @@ class App extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <input type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" />
             <button type="submit" value="Submit">Submit</button>
+            <img src="https://books.google.com/googlebooks/images/poweredby.png" className="poweredbyGoogle" border="0"></img>
           </form>
-          <div className="total">{this.state.showTotal && `Total items ${this.state.totalItems}`}</div>
+          <div className="total">{this.state.showTotal && `Total items: ${this.state.totalItems}`}</div>
         </header>
         <main>
           {this.state.items.map( item => (
