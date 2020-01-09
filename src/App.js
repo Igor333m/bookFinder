@@ -71,8 +71,14 @@ const SubmitButton = styled.button`
 `;
 
 const PaginationButton = styled.button`
-  margin: 3rem 0;
+  margin: 3rem 0 5rem 0;
   padding: 1rem 6rem;
+  &.first {
+    border-radius: 1rem 0 0 1rem;
+  }
+  &.last {
+    border-radius: 0 1rem 1rem 0;
+  }
 `;
 
 class App extends React.Component {
@@ -214,8 +220,8 @@ class App extends React.Component {
             <Item item={item} key={item.id}></Item>
           ))}
         </Main>
-        {this.state.showTotal && <PaginationButton onClick={this.paginationPrev} disabled={this.state.startIndex <= 0}>Prev</PaginationButton>}
-        {this.state.showTotal && <PaginationButton onClick={this.paginationNext} disabled={this.state.items.length < 10 || this.state.startIndex + 10 >= this.state.totalItems}>Next</PaginationButton>}
+        {this.state.showTotal && <PaginationButton className="first" onClick={this.paginationPrev} disabled={this.state.startIndex <= 0}>Prev</PaginationButton>}
+        {this.state.showTotal && <PaginationButton className="last" onClick={this.paginationNext} disabled={this.state.items.length < 10 || this.state.startIndex + 10 >= this.state.totalItems}>Next</PaginationButton>}
       </Container>
     );
   }
