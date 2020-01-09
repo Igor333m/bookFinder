@@ -8,6 +8,7 @@ const Section = styled.section`
 	margin: 2rem 2rem;
 	padding: 2rem;
 	border-radius: 0 3rem 0 0;
+	text-align: initial;
 `;
 
 const Book = styled.div`

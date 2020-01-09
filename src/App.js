@@ -3,6 +3,10 @@ import './App.css';
 import Item from './Item';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  text-align: center;
+`;
+
 const Main = styled.main`
   display: flex;
   max-width: 900%;
@@ -64,7 +68,11 @@ const SubmitButton = styled.button`
   @media screen and (max-width: 700px) {
     width: 30%;
   }
+`;
 
+const PaginationButton = styled.button`
+  margin: 3rem 0;
+  padding: 1rem 6rem;
 `;
 
 class App extends React.Component {
@@ -120,12 +128,16 @@ class App extends React.Component {
         .then( response => {
           const { totalItems, items } = JSON.parse(response);
           console.log('totalItems: ', totalItems);
-          this.setState({
-            totalItems,
-            items,
-            showTotal: true,
-            currentPage: 1
-          });
+          if (items) {
+            this.setState({
+              totalItems,
+              items,
+              showTotal: true,
+              currentPage: 1
+            });
+          } else {
+            alert('No results!');
+          }
         }, error => {
           console.log("error: ", error);
         } );
@@ -185,7 +197,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <header>
           <h1>Book Finder</h1>
           <form onSubmit={this.handleSubmit}>
@@ -202,9 +214,9 @@ class App extends React.Component {
             <Item item={item} key={item.id}></Item>
           ))}
         </Main>
-        {this.state.showTotal && <button onClick={this.paginationPrev} disabled={this.state.startIndex <= 0}>Prev</button>}
-        {this.state.showTotal && <button onClick={this.paginationNext} disabled={this.state.items.length < 10 || this.state.startIndex + 10 >= this.state.totalItems}>Next</button>}
-      </div>
+        {this.state.showTotal && <PaginationButton onClick={this.paginationPrev} disabled={this.state.startIndex <= 0}>Prev</PaginationButton>}
+        {this.state.showTotal && <PaginationButton onClick={this.paginationNext} disabled={this.state.items.length < 10 || this.state.startIndex + 10 >= this.state.totalItems}>Next</PaginationButton>}
+      </Container>
     );
   }
 }
