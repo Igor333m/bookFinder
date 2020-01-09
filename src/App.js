@@ -81,6 +81,11 @@ const PaginationButton = styled.button`
   }
 `;
 
+const NoResults = styled.p`
+  color: #333;
+  font-weight: 500;
+`;
+
 class App extends React.Component {
 
   state = {
@@ -89,12 +94,14 @@ class App extends React.Component {
     totalItems: '',
     items: [],
     currentPage: null,
-    startIndex: 0
+    startIndex: 0,
+    noResults: false
   }
 
   handleChange = e => {
     this.setState({
-      inputValue: e.target.value
+      inputValue: e.target.value,
+      noResults: false
     })
   }
 
@@ -142,7 +149,9 @@ class App extends React.Component {
               currentPage: 1
             });
           } else {
-            alert('No results!');
+            this.setState({
+              noResults: true
+            });
           }
         }, error => {
           console.log("error: ", error);
@@ -180,25 +189,25 @@ class App extends React.Component {
 
   paginationNext = () => {
     this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}&startIndex=${this.state.startIndex + 10}`)
-        .then( response => {
-          const { totalItems, items } = JSON.parse(response);
-          console.log('response: ', response);
-          console.log('get ${this.state.startIndex}: ', this.state.startIndex);
-          console.log('totalItems: ', totalItems);
-          console.log('items: ', items);
-          if (items) {
-            this.setState({
-              totalItems,
-              items,
-              currentPage: this.state.currentPage + 1,
-              startIndex: this.state.startIndex + 10
-            });
-          } else {
-            alert("Something went wrong! Please try again!");
-          }
-        }, error => {
-          console.log("paginationNext / error: ", error);
-        } );
+      .then( response => {
+        const { totalItems, items } = JSON.parse(response);
+        console.log('response: ', response);
+        console.log('get ${this.state.startIndex}: ', this.state.startIndex);
+        console.log('totalItems: ', totalItems);
+        console.log('items: ', items);
+        if (items) {
+          this.setState({
+            totalItems,
+            items,
+            currentPage: this.state.currentPage + 1,
+            startIndex: this.state.startIndex + 10
+          });
+        } else {
+          alert("Something went wrong! Please try again!");
+        }
+      }, error => {
+        console.log("paginationNext / error: ", error);
+      });
   }
 
   render() {
@@ -220,6 +229,7 @@ class App extends React.Component {
             <Item item={item} key={item.id}></Item>
           ))}
         </Main>
+        {this.state.noResults && <NoResults>We couldn’t find any repositories matching '{this.state.inputValue}'</NoResults>}
         {this.state.showTotal && <PaginationButton className="first" onClick={this.paginationPrev} disabled={this.state.startIndex <= 0}>Prev</PaginationButton>}
         {this.state.showTotal && <PaginationButton className="last" onClick={this.paginationNext} disabled={this.state.items.length < 10 || this.state.startIndex + 10 >= this.state.totalItems}>Next</PaginationButton>}
       </Container>
