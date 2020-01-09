@@ -161,8 +161,14 @@ class App extends React.Component {
               currentPage: 1
             });
           } else {
+            // Clear previous state if no results
             this.setState({
-              noResults: true
+              noResults: true,
+              totalItems: '',
+              items: [],
+              showTotal: false,
+              currentPage: null,
+              startIndex: 0
             });
           }
         }, error => {
@@ -188,7 +194,6 @@ class App extends React.Component {
         .then( response => {
           NProgres.done();
           const { totalItems, items } = JSON.parse(response);
-          console.log('response: ', response);
           console.log('get ${this.state.startIndex}: ', this.state.startIndex);
           console.log('totalItems: ', totalItems);
           console.log('items: ', items);
@@ -211,7 +216,6 @@ class App extends React.Component {
       .then( response => {
         NProgres.done();
         const { totalItems, items } = JSON.parse(response);
-        console.log('response: ', response);
         console.log('get ${this.state.startIndex}: ', this.state.startIndex);
         console.log('totalItems: ', totalItems);
         console.log('items: ', items);
