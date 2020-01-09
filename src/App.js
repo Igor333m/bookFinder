@@ -47,7 +47,6 @@ const SubmitButton = styled.button`
   border: 2px solid #999;
   background-color: green;
   color: whitesmoke;
-  /* border: solid; */
   font-size: larger;
   padding-left: 1rem;
   border-radius: 0 1rem 1rem 0;
@@ -74,7 +73,9 @@ class App extends React.Component {
     inputValue: '',
     showTotal: false,
     totalItems: '',
-    items: []
+    items: [],
+    currentPage: null,
+    startIndex: 0
   }
 
   handleChange = e => {
@@ -115,16 +116,15 @@ class App extends React.Component {
     e.preventDefault();
     // Handle empty submit
     if (this.state.inputValue) {
-      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}&startIndex=11`)
+      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}`)
         .then( response => {
           const { totalItems, items } = JSON.parse(response);
-          console.log('response: ', response);
           console.log('totalItems: ', totalItems);
-          console.log('items: ', items);
           this.setState({
             totalItems,
             items,
-            showTotal: true
+            showTotal: true,
+            currentPage: 1
           });
         }, error => {
           console.log("error: ", error);
@@ -134,9 +134,53 @@ class App extends React.Component {
       this.setState({
         totalItems: '',
         items: [],
-        showTotal: false
+        showTotal: false,
+        currentPage: null,
+        startIndex: 0
       });
     }
+  }
+
+  paginationPrev = () => {
+    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}&startIndex=${this.state.startIndex - 10}`)
+        .then( response => {
+          const { totalItems, items } = JSON.parse(response);
+          console.log('response: ', response);
+          console.log('get ${this.state.startIndex}: ', this.state.startIndex);
+          console.log('totalItems: ', totalItems);
+          console.log('items: ', items);
+          this.setState({
+            totalItems,
+            items,
+            currentPage: this.state.currentPage - 1,
+            startIndex: this.state.startIndex - 10
+          });
+        }, error => {
+          console.log("paginationNext / error: ", error);
+        } );
+  }
+
+  paginationNext = () => {
+    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}&startIndex=${this.state.startIndex + 10}`)
+        .then( response => {
+          const { totalItems, items } = JSON.parse(response);
+          console.log('response: ', response);
+          console.log('get ${this.state.startIndex}: ', this.state.startIndex);
+          console.log('totalItems: ', totalItems);
+          console.log('items: ', items);
+          if (items) {
+            this.setState({
+              totalItems,
+              items,
+              currentPage: this.state.currentPage + 1,
+              startIndex: this.state.startIndex + 10
+            });
+          } else {
+            alert("Something went wrong! Please try again!");
+          }
+        }, error => {
+          console.log("paginationNext / error: ", error);
+        } );
   }
 
   render() {
@@ -158,6 +202,8 @@ class App extends React.Component {
             <Item item={item} key={item.id}></Item>
           ))}
         </Main>
+        {this.state.showTotal && <button onClick={this.paginationPrev} disabled={this.state.startIndex <= 0}>Prev</button>}
+        {this.state.showTotal && <button onClick={this.paginationNext} disabled={this.state.items.length < 10 || this.state.startIndex + 10 >= this.state.totalItems}>Next</button>}
       </div>
     );
   }
