@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Item from './Item';
 import styled from 'styled-components';
+import NProgres from 'nprogress';
 
 const Container = styled.div`
   text-align: center;
@@ -137,8 +138,11 @@ class App extends React.Component {
     e.preventDefault();
     // Handle empty submit
     if (this.state.inputValue) {
-      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}`)
+      // NProgress loading bar
+      NProgres.start();
+      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"`)
         .then( response => {
+          NProgres.done();
           const { totalItems, items } = JSON.parse(response);
           console.log('totalItems: ', totalItems);
           if (items) {
@@ -154,6 +158,7 @@ class App extends React.Component {
             });
           }
         }, error => {
+          NProgres.done();
           console.log("error: ", error);
         } );
       console.log(this.state.inputValue);
@@ -169,8 +174,10 @@ class App extends React.Component {
   }
 
   paginationPrev = () => {
-    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}&startIndex=${this.state.startIndex - 10}`)
+    NProgres.start();
+    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"&startIndex=${this.state.startIndex - 10}`)
         .then( response => {
+          NProgres.done();
           const { totalItems, items } = JSON.parse(response);
           console.log('response: ', response);
           console.log('get ${this.state.startIndex}: ', this.state.startIndex);
@@ -183,13 +190,16 @@ class App extends React.Component {
             startIndex: this.state.startIndex - 10
           });
         }, error => {
+          NProgres.done();
           console.log("paginationNext / error: ", error);
         } );
   }
 
   paginationNext = () => {
-    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.inputValue}&startIndex=${this.state.startIndex + 10}`)
+    NProgres.start();
+    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"&startIndex=${this.state.startIndex + 10}`)
       .then( response => {
+        NProgres.done();
         const { totalItems, items } = JSON.parse(response);
         console.log('response: ', response);
         console.log('get ${this.state.startIndex}: ', this.state.startIndex);
@@ -206,6 +216,7 @@ class App extends React.Component {
           alert("Something went wrong! Please try again!");
         }
       }, error => {
+        NProgres.done();
         console.log("paginationNext / error: ", error);
       });
   }
