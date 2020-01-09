@@ -99,6 +99,14 @@ class App extends React.Component {
     noResults: false
   }
 
+  scrollToTop = () => {
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    });
+  }
+
   handleChange = e => {
     this.setState({
       inputValue: e.target.value,
@@ -174,6 +182,7 @@ class App extends React.Component {
   }
 
   paginationPrev = () => {
+    this.scrollToTop();
     NProgres.start();
     this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"&startIndex=${this.state.startIndex - 10}`)
         .then( response => {
@@ -196,6 +205,7 @@ class App extends React.Component {
   }
 
   paginationNext = () => {
+    this.scrollToTop();
     NProgres.start();
     this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"&startIndex=${this.state.startIndex + 10}`)
       .then( response => {
