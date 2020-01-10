@@ -46,6 +46,21 @@ const SearchInput = styled.input`
   }
 `;
 
+const ClearSearchButton = styled.button`
+  border: 0;
+  right: 4rem;
+  position: relative;
+  background-color: transparent;
+  font-size: 2rem;
+  font-weight: 400;
+  top: 0.2rem;
+  color: grey;
+
+  &:hover {
+    color: darkgrey;
+  }
+`;
+
 const SubmitButton = styled.button`
   height: 5rem;
   width: 15%;
@@ -55,6 +70,7 @@ const SubmitButton = styled.button`
   font-size: larger;
   padding-left: 1rem;
   border-radius: 0 1rem 1rem 0;
+  margin-left: -3rem;
 
   &:hover {
     color: white;
@@ -114,6 +130,18 @@ class App extends React.Component {
     })
   }
 
+  clearSearch = e => {
+    e.preventDefault();
+    this.setState({
+      inputValue: '',
+      totalItems: '',
+      items: [],
+      showTotal: false,
+      currentPage: null,
+      startIndex: 0
+    });
+  }
+  
   get = url => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -177,13 +205,7 @@ class App extends React.Component {
         } );
       console.log(this.state.inputValue);
     } else {
-      this.setState({
-        totalItems: '',
-        items: [],
-        showTotal: false,
-        currentPage: null,
-        startIndex: 0
-      });
+      this.clearSearch(e);
     }
   }
 
@@ -236,12 +258,16 @@ class App extends React.Component {
   }
 
   render() {
+    // Hides the clear search button
+    const visibilityHidden = { visibility: !this.state.inputValue ? 'hidden' : 'visible'};
+
     return (
       <Container>
         <header>
           <h1>Book Finder</h1>
           <form onSubmit={this.handleSubmit}>
             <SearchInput type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" />
+            <ClearSearchButton onClick={this.clearSearch} style={visibilityHidden}>X</ClearSearchButton>
             <SubmitButton type="submit" value="Submit">Submit</SubmitButton>
           </form>
           <PoweredbyGoogle src="https://books.google.com/googlebooks/images/poweredby.png" border="0" alt=""></PoweredbyGoogle>
@@ -254,7 +280,7 @@ class App extends React.Component {
             <Item item={item} key={item.id}></Item>
           ))}
         </Main>
-        {this.state.noResults && <NoResults>We couldn’t find any repositories matching '{this.state.inputValue}'</NoResults>}
+        {this.state.noResults && this.state.inputValue && <NoResults>We couldn’t find any repositories matching '{this.state.inputValue}'</NoResults>}
         {this.state.showTotal && <PaginationButton className="first" onClick={this.paginationPrev} disabled={this.state.startIndex <= 0}>Prev</PaginationButton>}
         {this.state.showTotal && <PaginationButton className="last" onClick={this.paginationNext} disabled={this.state.items.length < 10 || this.state.startIndex + 10 >= this.state.totalItems}>Next</PaginationButton>}
       </Container>
