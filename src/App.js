@@ -46,7 +46,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const ClearSearchButton = styled.button`
+const ClearSearchButton = styled.a`
   border: 0;
   right: 4rem;
   position: relative;
@@ -58,6 +58,7 @@ const ClearSearchButton = styled.button`
 
   &:hover {
     color: darkgrey;
+    cursor: pointer;
   }
 `;
 
@@ -266,9 +267,9 @@ class App extends React.Component {
         <header>
           <h1>Book Finder</h1>
           <form onSubmit={this.handleSubmit}>
-            <SearchInput type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" />
-            <ClearSearchButton onClick={this.clearSearch} style={visibilityHidden}>X</ClearSearchButton>
-            <SubmitButton type="submit" value="Submit">Submit</SubmitButton>
+            <SearchInput type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" tabIndex="1"/>
+            <ClearSearchButton onClick={this.clearSearch} onKeyPress={e => e.charCode === 13 && this.clearSearch(e)} style={visibilityHidden} tabIndex="3" title="Clear Search">X</ClearSearchButton>
+            <SubmitButton type="submit" value="Submit" tabIndex="2">Submit</SubmitButton>
           </form>
           <PoweredbyGoogle src="https://books.google.com/googlebooks/images/poweredby.png" border="0" alt=""></PoweredbyGoogle>
           <TotalItems>{this.state.showTotal && `Total items: ${this.state.totalItems}`}</TotalItems>
