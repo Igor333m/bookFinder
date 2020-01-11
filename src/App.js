@@ -66,7 +66,7 @@ const SubmitButton = styled.button`
   height: 5rem;
   width: 15%;
   border: 2px solid #999;
-  background-color: green;
+  background-color: #295667;
   color: whitesmoke;
   font-size: larger;
   padding-left: 1rem;
@@ -265,7 +265,7 @@ class App extends React.Component {
     return (
       <Container>
         <header>
-          <h1>Book Finder</h1>
+          <h1>BOOK FINDER</h1>
           <form onSubmit={this.handleSubmit}>
             <SearchInput type="text" value={this.state.inputValue} onChange={this.handleChange} placeholder="Search.." name="search" tabIndex="1"/>
             <ClearSearchButton onClick={this.clearSearch} onKeyPress={e => e.charCode === 13 && this.clearSearch(e)} style={visibilityHidden} tabIndex="3" title="Clear Search">X</ClearSearchButton>

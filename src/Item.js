@@ -36,7 +36,7 @@ const BookInfoLink = styled.a`
   width: 15rem;
   text-align: center;
   text-decoration: none;
-	background-color:green;
+	background-color:#295667;
   padding: 1rem;
   font-weight: 500;
   color: whitesmoke;
