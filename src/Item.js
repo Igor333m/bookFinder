@@ -65,7 +65,7 @@ const Item = props => {
 				</BookImage>
 				<BookDescription>
 					<h2 className="line-clamp" title={volumeInfo.title}>{volumeInfo.title}</h2>
-					<p>By: {volumeInfo.authors && volumeInfo.authors.map( author => author ) || 'No authors found'}</p>
+					<p>By: {volumeInfo.authors && volumeInfo.authors.map( (author, index) => ((index ? ', ' : '') + author) ) || 'No authors found'}</p>
 					<p>Published By: {volumeInfo.publisher || 'Unknown publisher'}</p>
 					<p>Published Date: {volumeInfo.publishedDate}</p>
 				</BookDescription>
