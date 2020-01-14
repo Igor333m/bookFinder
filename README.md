@@ -2,9 +2,9 @@
 
 ## Overview
 ---
-This app was created for the Chingu Voyage pre-work - Project (Tier 3). It uses Google Books Api
+This app was created for the Chingu Voyage pre-work - Project (Tier 3). It uses Google Books Api.
 
-LIVE LINK: https://book-search-by-igor.herokuapp.com/
+Heroku CLI deployment: https://book-search-by-igor.herokuapp.com/
 
 ## Features
 
