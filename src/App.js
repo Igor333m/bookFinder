@@ -71,7 +71,7 @@ const SubmitButton = styled.button`
   font-size: larger;
   padding-left: 1rem;
   border-radius: 0 1rem 1rem 0;
-  margin-left: -3rem;
+  margin-left: -1.5rem;
 
   &:hover {
     color: white;
@@ -177,7 +177,7 @@ class App extends React.Component {
     if (this.state.inputValue) {
       // NProgress loading bar
       NProgres.start();
-      this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"`)
+      this.get(`https://www.googleapis.com/books/v1/volumes?q=:${this.state.inputValue}`)
         .then( response => {
           NProgres.done();
           const { totalItems, items } = JSON.parse(response);
