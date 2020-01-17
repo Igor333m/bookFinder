@@ -213,7 +213,7 @@ class App extends React.Component {
   paginationPrev = () => {
     this.scrollToTop();
     NProgres.start();
-    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"&startIndex=${this.state.startIndex - 10}`)
+    this.get(`https://www.googleapis.com/books/v1/volumes?q=${this.state.inputValue}&startIndex=${this.state.startIndex - 10}`)
         .then( response => {
           NProgres.done();
           const { totalItems, items } = JSON.parse(response);
@@ -235,7 +235,7 @@ class App extends React.Component {
   paginationNext = () => {
     this.scrollToTop();
     NProgres.start();
-    this.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${this.state.inputValue}"&startIndex=${this.state.startIndex + 10}`)
+    this.get(`https://www.googleapis.com/books/v1/volumes?q=${this.state.inputValue}&startIndex=${this.state.startIndex + 10}`)
       .then( response => {
         NProgres.done();
         const { totalItems, items } = JSON.parse(response);
